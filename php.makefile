@@ -19,12 +19,12 @@ chphp:
 	@echo 'source /usr/local/share/chphp/chphp.sh' > ~/.bashrc.d/chphp.sh
 	chmod +x ~/.bashrc.d/chphp.sh
 
-php5.3: PHP_VERSION=5.3.28
+php5.3: PHP_VERSION=5.3.29
 php5.3: PHP_INSTALL_DIR=$(PHP_INSTALL_ROOT)/php-$(PHP_VERSION)
 php5.3: PHP_SRC_DIR=$(PHP_SRC_ROOT)/php-$(PHP_VERSION)
-php5.3: php-uninstall php5.3-install php-configure php-src-clean
+php5.3: php-uninstall php5.3-install php-configure intl-pecl-install intl-pecl-enable php-src-clean
 
-php5.4: PHP_VERSION=5.4.24
+php5.4: PHP_VERSION=5.4.25
 php5.4: PHP_INSTALL_DIR=$(PHP_INSTALL_ROOT)/php-$(PHP_VERSION)
 php5.4: PHP_SRC_DIR=$(PHP_SRC_ROOT)/php-$(PHP_VERSION)
 php5.4: php-uninstall php-install php-configure xdebug-pecl-install xdebug-pecl-enable php-src-clean
@@ -43,13 +43,19 @@ php5.3-install:
 	php-install php $(PHP_VERSION) --install-dir $(PHP_INSTALL_DIR) -- \
 		--with-config-file-path=$(INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
 		--enable-debug \
-		--with-pcre-regex --with-openssl --with-pdo-mysql --with-gettext --with-gd --enable-sockets --with-xsl
+		--enable-mbstring --enable-mbregex --enable-sockets --enable-pdo --enable-zend-multibyte --enable-gd-native-ttf --enable-exif \
+		--enable-soap --enable-xmlreader --enable-ftp --enable-pcntl --enable-sysvsem --enable-sysvshm --enable-shmop \
+		--with-pcre-regex --with-openssl --with-gettext --with-gd --with-xsl --with-readline \
+		--with-mysql --with-pdo-mysql --with-pdo-pgsql --with-pdo-sqlite \
+        --with-curlwrappers --with-jpeg-dir --with-png-dir --with-zlib --with-zlib-dir--with-gettext --with-kerberos --with-imap-ssl --with-iconv --with-pspell --with-xsl --with-curl --with-tidy --with-xmlrpc --with-readline
+
 
 php-install:
 	php-install php $(PHP_VERSION) --install-dir $(PHP_INSTALL_DIR) -- \
 		--with-config-file-path=$(INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
 		--enable-debug \
-		--with-pcre-regex --with-openssl --with-pdo-mysql --with-gettext --with-gd --enable-intl --enable-sockets --with-xsl
+		--enable-mbstring --enable-intl --enable-sockets \
+		--with-pcre-regex --with-openssl --with-pdo-mysql --with-gettext --with-gd --with-xsl
 
 php-uninstall:
 	rm -rf $(PHP_INSTALL_DIR)
@@ -57,6 +63,12 @@ php-uninstall:
 php-configure: PHP_INSTALL_DIR=$(PHP_INSTALL_ROOT)/php-$(PHP_VERSION)
 php-configure:
 	cp $(PHP_SRC_DIR)/php.ini-development $(PHP_INSTALL_DIR)/etc/php.ini
+
+intl-pecl-install:
+	source ~/.bashrc.d/chphp.sh && chphp $(PHP_VERSION) && yes '' | pecl install intl
+intl-pecl-enable:
+	echo extension=intl.so > $(PHP_INSTALL_DIR)/etc/intl.ini
+
 
 xdebug-pecl-install:
 	source ~/.bashrc.d/chphp.sh && chphp $(PHP_VERSION) && pecl install xdebug
