@@ -10,12 +10,12 @@ php-install:
 	cd php-install-$(PHPINSTALL_VERSION) && sudo $(MAKE) install
 	rm -rf php-install-$(PHPINSTALL_VERSION)
 
-chphp: CPHP_VERSION=0.0.1
+chphp: CHPHP_VERSION=0.0.1
 chphp:
-	wget -O chphp-$(CPHP_VERSION).tar.gz https://github.com/marcosdsanchez/chphp/archive/v$(CPHP_VERSION).tar.gz
-	tar -xzvf chphp-$(CPHP_VERSION).tar.gz
-	cd chphp-$(CPHP_VERSION)/ && sudo $(MAKE) install
-	rm -rf chphp-$(CPHP_VERSION)
+	wget -O chphp-$(CHPHP_VERSION).tar.gz https://github.com/marcosdsanchez/chphp/archive/v$(CHPHP_VERSION).tar.gz
+	tar -xzvf chphp-$(CHPHP_VERSION).tar.gz
+	cd chphp-$(CHPHP_VERSION)/ && sudo $(MAKE) install
+	rm -rf chphp-$(CHPHP_VERSION)
 	@echo 'source /usr/local/share/chphp/chphp.sh' > ~/.bashrc.d/chphp.sh
 	chmod +x ~/.bashrc.d/chphp.sh
 
