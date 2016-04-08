@@ -3,7 +3,7 @@ PHP_INSTALL_ROOT=$(HOME)/.php_versions
 SRC_ROOT=$(HOME)/src
 PHP_SRC_ROOT=$(HOME)/src
 
-php-install: PHPINSTALL_VERSION=0.0.3
+php-install: PHPINSTALL_VERSION=0.0.4
 php-install:
 	wget -O php-install-$(PHPINSTALL_VERSION).tar.gz https://github.com/helstern/php-install/archive/v$(PHPINSTALL_VERSION).tar.gz
 	tar -xzvf php-install-$(PHPINSTALL_VERSION).tar.gz
@@ -39,6 +39,11 @@ php5.6: PHP_INSTALL_DIR=$(PHP_INSTALL_ROOT)/php-$(PHP_VERSION)
 php5.6: PHP_SRC_DIR=$(PHP_SRC_ROOT)/php-$(PHP_VERSION)
 php5.6: php-uninstall php-install php-configure xdebug-pecl-install xdebug-pecl-enable php-src-clean
 
+php7: PHP_VERSION=7.0.5
+php7: PHP_INSTALL_DIR=$(PHP_INSTALL_ROOT)/php-$(PHP_VERSION)
+php7: PHP_SRC_DIR=$(PHP_SRC_ROOT)/php-$(PHP_VERSION)
+php7: php-uninstall php-install php-configure xdebug-pecl-install xdebug-pecl-enable php-src-clean
+
 php5.3-install:
 	php-install php $(PHP_VERSION) --install-dir $(PHP_INSTALL_DIR) -- \
 		--with-config-file-path=$(INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
@@ -49,13 +54,13 @@ php5.3-install:
 		--with-mysql --with-pdo-mysql --with-pdo-pgsql --with-pdo-sqlite \
         --with-curlwrappers --with-jpeg-dir --with-png-dir --with-zlib --with-zlib-dir--with-gettext --with-kerberos --with-imap-ssl --with-iconv --with-pspell --with-xsl --with-curl --with-tidy --with-xmlrpc --with-readline
 
-
 php-install:
 	php-install php $(PHP_VERSION) --install-dir $(PHP_INSTALL_DIR) -- \
 		--with-config-file-path=$(INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
 		--enable-debug \
 		--enable-mbstring --enable-intl --enable-sockets \
-		--with-pcre-regex --with-openssl --with-pdo-mysql --with-gettext --with-gd --with-xsl
+		--with-pcre-regex --with-openssl --with-pdo-mysql --with-gettext --with-gd --with-xsl \
+		--with-readline
 
 php-uninstall:
 	rm -rf $(PHP_INSTALL_DIR)
