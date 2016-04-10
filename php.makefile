@@ -46,17 +46,17 @@ php7: php-uninstall php-install php-configure xdebug-pecl-install xdebug-pecl-en
 
 php5.3-install:
 	php-install php $(PHP_VERSION) --install-dir $(PHP_INSTALL_DIR) -- \
-		--with-config-file-path=$(INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
+		--with-config-file-path=$(PHP_INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
 		--enable-debug \
 		--enable-mbstring --enable-mbregex --enable-sockets --enable-pdo --enable-zend-multibyte --enable-gd-native-ttf --enable-exif \
 		--enable-soap --enable-xmlreader --enable-ftp --enable-pcntl --enable-sysvsem --enable-sysvshm --enable-shmop \
 		--with-pcre-regex --with-openssl --with-gettext --with-gd --with-xsl --with-readline \
 		--with-mysql --with-pdo-mysql --with-pdo-pgsql --with-pdo-sqlite \
-        --with-curlwrappers --with-jpeg-dir --with-png-dir --with-zlib --with-zlib-dir--with-gettext --with-kerberos --with-imap-ssl --with-iconv --with-pspell --with-xsl --with-curl --with-tidy --with-xmlrpc --with-readline
+		--with-curlwrappers --with-jpeg-dir --with-png-dir --with-zlib --with-zlib-dir--with-gettext --with-kerberos --with-imap-ssl --with-iconv --with-pspell --with-xsl --with-curl --with-tidy --with-xmlrpc --with-readline
 
 php-install:
 	php-install php $(PHP_VERSION) --install-dir $(PHP_INSTALL_DIR) -- \
-		--with-config-file-path=$(INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
+		--with-config-file-path=$(PHP_INSTALL_DIR)/etc --with-config-file-scan-dir=$(PHP_INSTALL_DIR)/etc \
 		--enable-debug \
 		--enable-mbstring --enable-intl --enable-sockets \
 		--with-pcre-regex --with-openssl --with-pdo-mysql --with-gettext --with-gd --with-xsl \
